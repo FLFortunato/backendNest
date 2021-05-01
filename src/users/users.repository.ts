@@ -3,7 +3,7 @@ import { EntityRepository, Repository } from 'typeorm';
 import { createUserDto } from './dtos/createUser.dto';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
-import { UnauthorizedException } from '@nestjs/common';
+import { NotFoundException, UnauthorizedException } from '@nestjs/common';
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
@@ -18,7 +18,7 @@ export class UserRepository extends Repository<User> {
       if (error.code === '23505') {
         throw new UnauthorizedException('Email is being used already');
       }
-      return;
+      return error;
     }
   }
 
@@ -27,7 +27,40 @@ export class UserRepository extends Repository<User> {
       const user = await this.findOne({ where: { email } });
       return user;
     } catch (error) {
-      console.log('---->', error);
+      throw new NotFoundException('User not found');
     }
+  }
+
+  async updateUser(id, body): Promise<any> {
+    try {
+      let password;
+      if (body.password) {
+        password = await bcrypt.hash(body.password, 10);
+        body = { ...body, password };
+      }
+      const result = await this.update(id, body);
+
+      return result;
+    } catch (error) {
+      throw new NotFoundException('Id not found');
+    }
+  }
+
+  async paginated(take, skip, page): Promise<any> {
+    try {
+      const total = await this.count();
+      const result = await this.find({
+        take,
+        skip: take * (page - 1),
+        order: { name: 'DESC' },
+      });
+      return {
+        data: result,
+        totalCount: total,
+        page,
+        skip,
+        take,
+      };
+    } catch (error) {}
   }
 }

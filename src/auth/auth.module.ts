@@ -6,6 +6,7 @@ import { UserRepository } from 'src/users/users.repository';
 import { UsersService } from 'src/users/users.service';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { secret } from './strategies/secret';
 
@@ -19,6 +20,6 @@ import { secret } from './strategies/secret';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy],
+  providers: [AuthService, LocalStrategy, JwtStrategy],
 })
 export class AuthModule {}
