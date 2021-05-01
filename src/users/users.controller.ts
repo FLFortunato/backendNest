@@ -18,11 +18,13 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly service: UsersService) {}
 
+  @UseGuards(JwtGuard)
   @Post()
   async create(@Body() body: createUserDto): Promise<User> {
     return this.service.create(body);
   }
 
+  @UseGuards(JwtGuard)
   @Get()
   async getAll(): Promise<User[]> {
     return await this.service.getAll();
@@ -33,9 +35,10 @@ export class UsersController {
   async update(@Body() body, @Param() param): Promise<User> {
     return this.service.update(param.id, body);
   }
-
+  
+  @UseGuards(JwtGuard)
   @Get('paged')
   async paged(@Query() { take, skip, page }): Promise<any> {
-    return await this.service.paginated(take,skip,page)
+    return await this.service.paginated(take, skip, page);
   }
 }

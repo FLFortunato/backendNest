@@ -3,9 +3,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrmConfig } from './ormConfig';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { EmailModule } from './email/email.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(OrmConfig), UsersModule, AuthModule],
+  imports: [
+    TypeOrmModule.forRoot(OrmConfig),
+    UsersModule,
+    AuthModule,
+    EmailModule,
+  ],
   controllers: [],
   providers: [],
 })
