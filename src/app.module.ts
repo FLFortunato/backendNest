@@ -4,6 +4,7 @@ import { OrmConfig } from './ormConfig';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { EmailModule } from './email/email.module';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { EmailModule } from './email/email.module';
     UsersModule,
     AuthModule,
     EmailModule,
+    PostsModule,
   ],
   controllers: [],
   providers: [],

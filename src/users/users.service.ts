@@ -14,12 +14,19 @@ export class UsersService {
   ) {}
 
   async create(user: createUserDto): Promise<any> {
+    const payload = { email: user.email, sub: user.id };
+
+    const token = await this.jwtService.sign(payload);
     const created = await this.userRepo.createUser(user);
+
     if (created.email) {
-      await this.emailService.nodemailer({
-        email: created.email,
-        id: created.id,
-      });
+      await this.emailService.nodemailer(
+        {
+          email: created.email,
+          id: created.id,
+        },
+        token,
+      );
     }
   }
 
