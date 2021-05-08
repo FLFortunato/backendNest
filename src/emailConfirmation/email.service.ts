@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as fs from 'fs';
 import * as nodemailer from 'nodemailer';
 import { promisify } from 'util';
-import { EmailLayout } from './template/email';
+import { EmailLayout } from '../emailConfirmation/template/email';
 import * as dotenv from 'dotenv';
 dotenv.config();
 @Injectable()
@@ -15,7 +15,7 @@ export class EmailService {
     const readFile = promisify(fs.readFile);
 
     const html = await readFile(
-      '/home/filipi/Desktop/PersonalProjects/backend-nestjs/src/email/template/index.html',
+      '/home/filipi/Desktop/PersonalProjects/backend-nestjs/src/emailConfirmation/template/index.html',
     );
 
     // create reusable transporter object using the default SMTP transport

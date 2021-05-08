@@ -10,7 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { JwtGuard } from 'src/auth/strategies/guards/jwt.guard';
-import { EmailService } from 'src/email/email.service';
+import { EmailService } from 'src/emailConfirmation/email.service';
 import { createUserDto } from './dtos/createUser.dto';
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
@@ -32,7 +32,6 @@ export class UsersController {
     return await this.service.confirmation(token);
   }
 
-  @UseGuards(JwtGuard)
   @Get()
   async getAll(): Promise<User[]> {
     return await this.service.getAll();

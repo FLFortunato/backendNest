@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { EmailService } from 'src/email/email.service';
+import { EmailService } from 'src/emailConfirmation/email.service';
 import { createUserDto } from './dtos/createUser.dto';
 import { User } from './entities/user.entity';
 import { UserRepository } from './users.repository';

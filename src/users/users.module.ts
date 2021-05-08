@@ -3,8 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserRepository } from './users.repository';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
-import { EmailModule } from 'src/email/email.module';
-import { EmailService } from 'src/email/email.service';
+import { EmailModule } from 'src/emailConfirmation/email.module';
+import { EmailService } from 'src/emailConfirmation/email.service';
 import { JwtModule } from '@nestjs/jwt';
 import { secret } from 'src/auth/strategies/secret';
 

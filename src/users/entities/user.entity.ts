@@ -1,9 +1,13 @@
+import { IsEmail, IsEmpty, IsOptional } from 'class-validator';
 import { Post } from 'src/posts/entities/post.entity';
+import { UserData } from 'src/userData/entities/userData.entity';
 import {
   BaseEntity,
   Column,
   Entity,
+  JoinColumn,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm';
@@ -28,4 +32,12 @@ export class User extends BaseEntity {
 
   @OneToMany((type) => Post, (post) => post.user)
   posts: Post[];
+
+  @Column({ nullable: true })
+  @IsOptional()
+  token: string;
+
+  @OneToOne(() => UserData, (userdata) => userdata.user)
+  @JoinColumn()
+  userData: UserData;
 }
