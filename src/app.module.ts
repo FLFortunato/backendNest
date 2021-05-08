@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { EmailModule } from './emailConfirmation/email.module';
 import { PostsModule } from './posts/posts.module';
 import { UserDataModule } from './userData/userData.module';
+import { TokensModule } from './tokens/tokens.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { UserDataModule } from './userData/userData.module';
     EmailModule,
     PostsModule,
     UserDataModule,
+    TokensModule,
   ],
   controllers: [],
   providers: [],
