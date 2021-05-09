@@ -1,4 +1,4 @@
-export const EmailLayout = (token: any) => {
+export const EmailLayout = (address: string): String => {
   return `<!DOCTYPE html>
     <html>
       <head>
@@ -270,7 +270,7 @@ export const EmailLayout = (token: any) => {
                                 style="border-radius: 6px"
                               >
                                 <a
-                                  href="https://sendgrid.com"
+                                  href=${address}
                                   target="_blank"
                                   style="
                                     display: inline-block;
@@ -282,7 +282,7 @@ export const EmailLayout = (token: any) => {
                                     text-decoration: none;
                                     border-radius: 6px;
                                   "
-                                  >${token}</a
+                                  >Confirmar</a
                                 >
                               </td>
                             </tr>

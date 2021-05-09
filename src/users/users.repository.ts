@@ -8,11 +8,13 @@ import { NotFoundException, UnauthorizedException } from '@nestjs/common';
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
   async createUser(data: createUserDto): Promise<any> {
+    const { password, email, name } = data;
+    const passwordHashed = await bcrypt.hash(password, 10);
+
+    let user = await this.create({ name, password: passwordHashed, email });
+
     try {
-      const password = await bcrypt.hash(data.password, 10);
-
-      const user = await this.insert({ ...data, password });
-
+      user.save();
       return user;
     } catch (error) {
       if (error.code === '23505') {
@@ -62,5 +64,9 @@ export class UserRepository extends Repository<User> {
         take,
       };
     } catch (error) {}
+  }
+
+  async updateActive(email: string): Promise<any> {
+    return await this.update({ email }, { isActive: true });
   }
 }
