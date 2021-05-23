@@ -8,6 +8,8 @@ import { AuthService } from './auth.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { secret } from './strategies/secret';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 @Module({
   imports: [
@@ -15,7 +17,7 @@ import { secret } from './strategies/secret';
     UsersModule,
     JwtModule.register({
       secret: secret,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: process.env.JWT_EXPIRES_IN },
     }),
     TokensModule,
   ],

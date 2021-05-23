@@ -1,4 +1,10 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AuthService } from 'src/auth/auth.service';
 import { UsersService } from 'src/users/users.service';
@@ -45,6 +51,19 @@ export class TokensService {
       } else {
         throw new HttpException('Invalid Token', HttpStatus.NOT_FOUND);
       }
-    } catch (error) {}
+    } catch (error) {
+      throw new UnauthorizedException();
+    }
+  }
+
+  async removeToken(token): Promise<any> {
+    const result = await this.tokenRepo.findOne({ where: { token } });
+
+  
+    if (result) {
+      return await this.tokenRepo.delete(result.id);
+    }
+
+    throw new NotFoundException('Token not found');
   }
 }

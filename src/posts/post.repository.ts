@@ -16,4 +16,10 @@ export class PostRepository extends Repository<Post> {
       throw new Error('An error occurred while trying to create the post');
     }
   }
+
+  async deletePost(id: string): Promise<any> {
+    try {
+      await this.delete(id);
+    } catch (error) {}
+  }
 }

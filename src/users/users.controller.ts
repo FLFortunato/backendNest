@@ -32,6 +32,7 @@ export class UsersController {
     return await this.service.confirmation(token);
   }
 
+  @UseGuards(JwtGuard)
   @Get()
   async getAll(): Promise<User[]> {
     return await this.service.getAll();
