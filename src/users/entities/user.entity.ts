@@ -1,6 +1,6 @@
 import { IsEmail, IsEmpty, IsOptional } from 'class-validator';
-import { Post } from 'src/posts/entities/post.entity';
-import { UserData } from 'src/userData/entities/userData.entity';
+import { Post } from '../../posts/entities/post.entity';
+import { UserData } from '../../userData/entities/userData.entity';
 import {
   BaseEntity,
   Column,

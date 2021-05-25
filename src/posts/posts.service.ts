@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Post } from './entities/post.entity';
 import { PostRepository } from './post.repository';
 
 @Injectable()
@@ -15,5 +16,9 @@ export class PostsService {
 
   async deletePost(id: string): Promise<any> {
     return await this.repo.deletePost(id);
+  }
+
+  async updatePost(data: Post): Promise<any> {
+    return await this.repo.update(data?.id, { ...data });
   }
 }
