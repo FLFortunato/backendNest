@@ -1,5 +1,8 @@
+import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { Queue } from 'bull';
+import { SendMailProducerService } from 'src/emailConfirmation/email.processor';
 import { EmailService } from 'src/emailConfirmation/email.service';
 import { createUserDto } from './dtos/createUser.dto';
 import { User } from './entities/user.entity';
@@ -11,6 +14,7 @@ export class UsersService {
     private userRepo: UserRepository,
     private emailService: EmailService,
     private jwtService: JwtService,
+    @InjectQueue('sendMail-queue') private readonly queue: Queue,
   ) {}
 
   async create(user: createUserDto): Promise<any> {
@@ -20,12 +24,12 @@ export class UsersService {
     const created = await this.userRepo.createUser(user);
 
     if (created.email) {
-      await this.emailService.nodemailer(
+      await this.queue.add(
+        'sendMail-queue',
+        { created, token },
         {
-          email: created.email,
-          id: created.id,
+          delay: 5000,
         },
-        token,
       );
     }
   }
