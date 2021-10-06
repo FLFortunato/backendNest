@@ -34,6 +34,7 @@ export class UsersController {
 
   @Get()
   async getAll(): Promise<User[]> {
+
     return await this.service.getAll();
   }
 

@@ -32,6 +32,7 @@ export class UsersService {
         },
       );
     }
+    return {name: created.name, email:created.email}
   }
 
   async findOne(email: string): Promise<any> {

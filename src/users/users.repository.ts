@@ -14,8 +14,7 @@ export class UserRepository extends Repository<User> {
     let user = await this.create({ name, password: passwordHashed, email });
 
     try {
-      user.save();
-      return user;
+     return user.save();
     } catch (error) {
       if (error.code === '23505') {
         throw new UnauthorizedException('Email is being used already');
